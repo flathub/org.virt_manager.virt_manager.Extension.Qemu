@@ -43,6 +43,10 @@ modules:
     - type: archive
       url: https://download.qemu.org/qemu-9.2.0.tar.xz
       sha256: f859f0bc65e1f533d040bbe8c92bcfecee5af2c921a6687c652fb44d089bd894
+      x-checker-data:
+        type: anitya
+        project-id: 13607
+        url-template: https://download.qemu.org/qemu-9.2.0.tar.xz
     modules:
     - name: slirp
       buildsystem: meson
@@ -50,6 +54,10 @@ modules:
       - type: archive
         url: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.8.0.tar.gz
         sha256: 378216c88c021c9ed7de9006db291127d30a0da94a23dffefdb26b26a5849bf7
+        x-checker-data:
+          type: anitya
+          project-id: 96796
+          url-template: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.8.0.tar.gz
     - name: usbredir
       buildsystem: meson
       modules:
@@ -72,6 +80,10 @@ modules:
       - type: archive
         url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.1.0/virglrenderer-1.1.0.tar.gz
         sha256: 9996b87bda2fbf515473b60f32b00ed58847da733b47053923fd2cb035a6f5a2
+        x-checker-data:
+          type: anitya
+          project-id: 15968
+          url-template: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/$version/virglrenderer-$version.tar.gz
     - name: spice
       buildsystem: autotools
       config-opts:
@@ -82,6 +94,10 @@ modules:
       - type: archive
         url: https://www.spice-space.org/download/releases/spice-0.15.1.tar.bz2
         sha256: ada9af67ab321916bd7eb59e3d619a4a7796c08a28c732edfc7f02fc80b1a37a
+        x-checker-data:
+          type: anitya
+          project-id: 4871
+          url-template: https://www.spice-space.org/download/releases/spice-$version.tar.bz2
       modules:
       - name: spice-protocol
         buildsystem: meson
@@ -100,6 +116,10 @@ modules:
           - type: archive
             url: https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/v1.7.2.tar.gz
             sha256: 04a30bd38b426ed771b8a8b5d9b773e54976d4f5d51a80a9e76a45b20c9a8272  
+            x-checker-data:
+              type: anitya
+              project-id: 16911
+              url-template: https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/v$version.tar.gz
   - name: swtpm
     buildsystem: autotools
     config-opts:
@@ -110,6 +130,11 @@ modules:
       - type: archive
         url: https://github.com/stefanberger/swtpm/archive/refs/tags/v0.10.0.tar.gz
         sha256: 9f10ae0d3123ab05c3808f8c8d39f633cf1a0cf142d6ac9b87b8364a682ac842
+        x-checker-data:
+          type: anitya
+          project-id: 116461
+          stable-only: true
+          url-template: https://github.com/stefanberger/swtpm/archive/refs/tags/v$version.tar.gz
       - type: patch
         path: swtpm-no-expect.patch
       - type: patch
@@ -133,6 +158,11 @@ modules:
           - type: archive
             url: https://github.com/stefanberger/libtpms/archive/refs/tags/v0.10.0.tar.gz
             sha256: 6da9a527b3afa7b1470acd4cd17157b8646c31a2c7ff3ba2dfc50c81ba413426
+            x-checker-data:
+              type: anitya
+              project-id: 116460
+              stable-only: true
+              url-template: https://github.com/stefanberger/libtpms/archive/refs/tags/v$version.tar.gz
         modules:
           - name: tcsd
             buildsystem: autotools
@@ -142,6 +172,10 @@ modules:
               - type: archive
                 url: https://downloads.sourceforge.net/project/trousers/trousers/0.3.15/trousers-0.3.15.tar.gz
                 sha256: 1e5be93e518372acf1d92d2f567d01a46fdb0b730487e544e6fb896c59cac77f
+                x-checker-data:
+                  type: anitya
+                  project-id: 5400
+                  url-template: https://downloads.sourceforge.net/project/trousers/trousers/$version/trousers-$version.tar.gz
           - name: netstat
             buildsystem: simple
             build-commands:
@@ -154,9 +188,10 @@ modules:
                 url: https://sourceforge.net/projects/net-tools/files/net-tools-2.10.tar.xz
                 sha256: b262435a5241e89bfa51c3cabd5133753952f7a7b7b93f32e08cb9d96f580d69
                 x-checker-data:
-                  type: html
-                  url: https://sourceforge.net/projects/net-tools/rss
-                  pattern: <link>(https://sourceforge.net/.+/net-tools-([\d\.]+\d).tar.xz)/download</link>
+                  type: anitya
+                  project-id: 10231
+                  stable-only: true
+                  url-template: https://sourceforge.net/projects/net-tools/files/net-tools-$version.tar.xz
   - name: metadata
     buildsystem: simple
     build-commands:
