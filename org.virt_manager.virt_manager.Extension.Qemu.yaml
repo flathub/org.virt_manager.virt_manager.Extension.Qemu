@@ -48,6 +48,7 @@ modules:
           project-id: 13607
           url-template: https://download.qemu.org/qemu-9.2.0.tar.xz
     modules:
+      - tianocore.yaml
       - name: slirp
         buildsystem: meson
         sources:
