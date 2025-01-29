@@ -1,0 +1,23 @@
+{
+    "description": "OVMF for microvm",
+    "interface-types": [
+        "uefi"
+    ],
+    "mapping": {
+        "device": "memory",
+        "filename": "/app/lib/extension/Qemu/share/edk2/x64/MICROVM.fd"
+    },
+    "targets": [
+        {
+            "architecture": "x86_64",
+            "machines": [
+                "microvm"
+            ]
+        }
+    ],
+    "features": [
+    ],
+    "tags": [
+    ]
+}
+

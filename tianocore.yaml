@@ -1,0 +1,69 @@
+name: tianocore-uefi
+buildsystem: simple
+build-commands:
+  - install -vDm 644 -t ${FLATPAK_DEST}/share/qemu/firmware 60-edk2-ovmf-x86_64-4m.json
+  - cp -r BaseTools/Source/C/BrotliCompress/brotli MdeModulePkg/Library/BrotliCustomDecompressLib
+  - make -C BaseTools
+  - |
+    source ./edksetup.sh
+    
+    BaseTools/BinWrappers/PosixLike/build \
+    -p OvmfPkg/OvmfPkgX64.dsc \
+    -a X64 \
+    -b "RELEASE" \
+    -n "$(nproc)" \
+    -t GCC5 \
+    -D FD_SIZE_4MB \
+    -D NETWORK_HTTP_BOOT_ENABLE \
+    -D NETWORK_IP6_ENABLE \
+    -D TPM_CONFIG_ENABLE \
+    -D TPM_ENABLE \
+    -D TPM1_ENABLE \
+    -D TPM2_ENABLE \
+    -D NETWORK_TLS_ENABLE \
+    -D SECURE_BOOT_ENABLE \
+    -D SMM_REQUIRE
+  - mv -v Build/OvmfX64{,-4mb}
+  - install -vDm 644 Build/OvmfX64-4mb/RELEASE_GCC5/FV/OVMF_CODE.fd "${FLATPAK_DEST}/share/ovmf/x64/OVMF_CODE.4m.fd"
+  - install -vDm 644 Build/OvmfX64-4mb/RELEASE_GCC5/FV/OVMF_VARS.fd "${FLATPAK_DEST}/share/ovmf/x64/OVMF_VARS.4m.fd"
+sources:
+  - type: archive
+    url: https://github.com/tianocore/edk2/archive/refs/tags/edk2-stable202411.tar.gz
+    sha256: 741b48f0557a99e477cba42df58996b9bc7fab1bc7a61ab729a812dc6185e682
+  - type: archive
+    dest: BaseTools/Source/C/BrotliCompress/brotli
+    url: https://github.com/google/brotli/archive/refs/tags/v1.1.0.tar.gz
+    sha256: e720a6ca29428b803f4ad165371771f5398faba397edf6778837a18599ea13ff
+  - type: archive
+    dest: MdePkg/Library/MipiSysTLib/mipisyst
+    url: https://github.com/MIPI-Alliance/public-mipi-sys-t/archive/refs/tags/v1.0.tar.gz
+    sha256: 7d734d84fa704625d412363df1933b9c299a577140ef59449b0155bdba9f93b7
+  - type: archive
+    dest: CryptoPkg/Library/OpensslLib/openssl
+    url: https://github.com/openssl/openssl/releases/download/openssl-3.0.15/openssl-3.0.15.tar.gz
+    sha256: 23c666d0edf20f14249b3d8f0368acaee9ab585b09e1de82107c66e1f3ec9533
+  - type: archive
+    dest: CryptoPkg/Library/MbedTlsLib/mbedtls
+    url: https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/mbedtls-3.6.2.tar.gz
+    sha256: a3c959773bc5d5b22353bc605e96d92fae2eac486dcaf46990412b84a1a0fb5f
+  - type: archive
+    dest: SecurityPkg/DeviceSecurity/SpdmLib/libspdm
+    url: https://github.com/DMTF/libspdm/archive/refs/tags/3.6.0.tar.gz
+    sha256: dfadf501d23c26041c921974971953a1d4a250ed6cd2679facb781471a5f944c
+  - type: file
+    path: ovmf/60-edk2-ovmf-x86_64-4m.json
+modules:
+  - name: iasl
+    buildsystem: simple
+    build-options:
+      env:
+        NOFORTIFY: TRUE
+        PREFIX: ${FLATPAK_DEST}
+    build-commands:
+      - make clean
+      - make iasl
+      - make install
+    sources:
+      - type: archive
+        url: https://github.com/acpica/acpica/archive/refs/tags/R2024_12_12.tar.gz
+        sha256: adde693d2486d77940bef81acb45fec1ca285266ecbc4d10c5cd058bca19dc07
