@@ -192,6 +192,17 @@ modules:
                   project-id: 10231
                   stable-only: true
                   url-template: https://sourceforge.net/projects/net-tools/files/net-tools-$version.tar.xz
+  - name: passt
+    buildsystem: simple
+    build-commands:
+      - make
+      - make prefix=${FLATPAK_DEST} install
+    sources:
+      - type: archive
+        url: https://passt.top/passt/snapshot/passt-2025_01_21.4f2c8e7.tar.gz
+        sha256: 1f3dc31502b4fa7c997c9f029e2472b7055bdee956f49551f4187fc75b7cbe13
+    cleanup:
+      - /share
   - name: metadata
     buildsystem: simple
     build-commands:
