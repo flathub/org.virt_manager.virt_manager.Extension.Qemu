@@ -78,8 +78,8 @@ modules:
           - -Dvenus=true
         sources:
           - type: archive
-            url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.1.0/virglrenderer-1.1.0.tar.gz
-            sha256: 9996b87bda2fbf515473b60f32b00ed58847da733b47053923fd2cb035a6f5a2
+            url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.1.1/virglrenderer-1.1.1.tar.gz
+            sha256: 1fc34ffbf2a4f5cf161228f13242e28283bd818901d7daf0027e6ae5fcaeaf9b
             x-checker-data:
               type: anitya
               project-id: 15968
@@ -103,8 +103,8 @@ modules:
             buildsystem: meson
             sources:
               - type: archive
-                url: https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.4/spice-protocol-v0.14.4.tar.gz
-                sha256: 9c31fa533ad531d1b816ffd0c24b4785d133e7bb397f72d35f7a6d59bcd7d53a
+                url: https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.5/spice-protocol-v0.14.5.tar.gz
+                sha256: 1be179b3dfbb23946432275f4b7a4b59bb5e9acc25c3128bc930b8264a9f0a20
                 x-checker-data:
                   type: anitya
                   project-id: 14892
@@ -144,8 +144,8 @@ modules:
         buildsystem: autotools
         sources:
           - type: archive
-            url: http://www.dest-unreach.org/socat/download/socat-1.8.0.2.tar.gz
-            sha256: e9498367cb765d44bb06be9709c950f436b30bf7071a224a0fee2522f9cbb417
+            url: http://www.dest-unreach.org/socat/download/socat-1.8.0.3.tar.gz
+            sha256: a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4
             x-checker-data:
               type: anitya
               project-id: 4848
