@@ -8,6 +8,9 @@
   <summary>Generic machine emulator and virtualizer and utilities for virtual machines</summary>
   <url type="homepage">https://qemu.org/</url>
   <releases>
+    <release version="0.10.1" date="2025-05-02">
+      <description></description>
+    </release>
     <release version="9.2.0" date="2024-12-10"/>
     <release version="9.1.2" date="2024-11-20"/>
     <release version="9.0.4" date="2024-11-20"/>
