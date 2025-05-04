@@ -73,13 +73,26 @@ modules:
               url-template: https://spice-space.org/download/usbredir/usbredir-$version.tar.xz
       - name: virglrenderer
         buildsystem: meson
+        build-options:
+          env:
+            PYTHONPATH: /app/lib/extensions/Qemu/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages 
         config-opts:
           - -Dvideo=true
           - -Dvenus=true
+          - -Dtests=false
+        modules:
+          - name: python3-PyYAML
+            buildsystem: simple
+            sources:
+              - type: file
+                url: https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz
+                sha256: d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e
+            build-commands:
+              - pip3 install --global-option='--with-libyaml' --no-index --find-links="file://${PWD}" --prefix="${FLATPAK_DEST}" --no-build-isolation PyYAML
         sources:
           - type: archive
-            url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.1.0/virglrenderer-1.1.0.tar.gz
-            sha256: 9996b87bda2fbf515473b60f32b00ed58847da733b47053923fd2cb035a6f5a2
+            url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.1.1/virglrenderer-1.1.1.tar.gz
+            sha256: 1fc34ffbf2a4f5cf161228f13242e28283bd818901d7daf0027e6ae5fcaeaf9b
             x-checker-data:
               type: anitya
               project-id: 15968
@@ -103,8 +116,8 @@ modules:
             buildsystem: meson
             sources:
               - type: archive
-                url: https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.4/spice-protocol-v0.14.4.tar.gz
-                sha256: 9c31fa533ad531d1b816ffd0c24b4785d133e7bb397f72d35f7a6d59bcd7d53a
+                url: https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.5/spice-protocol-v0.14.5.tar.gz
+                sha256: 1be179b3dfbb23946432275f4b7a4b59bb5e9acc25c3128bc930b8264a9f0a20
                 x-checker-data:
                   type: anitya
                   project-id: 14892
@@ -128,8 +141,8 @@ modules:
       - --with-tss-group=tss
     sources:
       - type: archive
-        url: https://github.com/stefanberger/swtpm/archive/refs/tags/v0.10.0.tar.gz
-        sha256: 9f10ae0d3123ab05c3808f8c8d39f633cf1a0cf142d6ac9b87b8364a682ac842
+        url: https://github.com/stefanberger/swtpm/archive/refs/tags/v0.10.1.tar.gz
+        sha256: f8da11cadfed27e26d26c5f58a7b8f2d14d684e691927348906b5891f525c684
         x-checker-data:
           type: anitya
           project-id: 116461
@@ -144,8 +157,8 @@ modules:
         buildsystem: autotools
         sources:
           - type: archive
-            url: http://www.dest-unreach.org/socat/download/socat-1.8.0.2.tar.gz
-            sha256: e9498367cb765d44bb06be9709c950f436b30bf7071a224a0fee2522f9cbb417
+            url: http://www.dest-unreach.org/socat/download/socat-1.8.0.3.tar.gz
+            sha256: a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4
             x-checker-data:
               type: anitya
               project-id: 4848
