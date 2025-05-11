@@ -75,7 +75,7 @@ modules:
         buildsystem: meson
         build-options:
           env:
-            PYTHONPATH: /app/lib/extensions/Qemu/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages 
+            PYTHONPATH: /app/lib/extensions/Qemu/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages
         config-opts:
           - -Dvideo=true
           - -Dvenus=true
@@ -88,7 +88,8 @@ modules:
                 url: https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz
                 sha256: d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e
             build-commands:
-              - pip3 install --global-option='--with-libyaml' --no-index --find-links="file://${PWD}" --prefix="${FLATPAK_DEST}" --no-build-isolation PyYAML
+              - pip3 install --global-option='--with-libyaml' --no-index --find-links="file://${PWD}"
+                --prefix="${FLATPAK_DEST}" --no-build-isolation PyYAML
         sources:
           - type: archive
             url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.1.1/virglrenderer-1.1.1.tar.gz
@@ -105,8 +106,8 @@ modules:
           - --disable-test
         sources:
           - type: archive
-            url: https://www.spice-space.org/download/releases/spice-0.15.2.tar.bz2
-            sha256: 6d9eb6117f03917471c4bc10004abecff48a79fb85eb85a1c45f023377015b81
+            url: https://www.spice-space.org/download/releases/spice-0.16.0.tar.bz2
+            sha256: 0a6ec9528f05371261bbb2d46ff35e7b5c45ff89bb975a99af95a5f20ff4717d
             x-checker-data:
               type: anitya
               project-id: 4871
