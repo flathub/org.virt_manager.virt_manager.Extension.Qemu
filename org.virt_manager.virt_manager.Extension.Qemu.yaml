@@ -2,9 +2,12 @@ app-id: org.virt_manager.virt_manager.Extension.Qemu
 runtime: org.virt_manager.virt-manager
 runtime-version: stable
 sdk: org.freedesktop.Sdk//24.08
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
 build-extension: true
 separate-locales: false
 build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin
   prefix: /app/lib/extensions/Qemu
   cflags: -I/app/lib/extensions/Qemu/include
   cxxflags: -I/app/lib/extensions/Qemu/include
@@ -48,6 +51,43 @@ modules:
           project-id: 13607
           url-template: https://download.qemu.org/qemu-9.2.0.tar.xz
     modules:
+      - name: virtiofsd
+        buildsystem: simple
+        build-commands:
+          # Updating the dependencies should be done via `update-deps.sh`
+          - install -Dm0644 ./virtiofsd-cargo-config.toml .cargo/config
+          - cargo --offline fetch --manifest-path Cargo.toml --verbose
+          - cargo --offline build --release --verbose
+          - install -Dm0755 ./target/release/virtiofsd ${FLATPAK_DEST}/bin/virtiofsd
+        sources:
+          - virtiofsd-cargo-sources.json
+          - type: file
+            path: virtiofsd-cargo-config.toml
+          - type: archive
+            url: https://gitlab.com/virtio-fs/virtiofsd/-/archive/v1.13.0/virtiofsd-v1.13.0.tar.gz
+            sha256: a45f4b3661322587a06b6aa29e5353e0a7047e755e8a7f55dbae308b778eb41c
+            x-checker-data:
+              type: anitya
+              project-id: 347345
+              url-template: https://gitlab.com/virtio-fs/virtiofsd/-/archive/v$version/virtiofsd-v$version.tar.gz
+        modules:
+          - name: libcap-ng
+            buildsystem: autotools
+            config-opts:
+              - --without-python3
+              - --enable-static=no
+            sources:
+              - type: archive
+                url:  https://github.com/stevegrubb/libcap-ng/archive/v0.8.5.tar.gz
+                sha256: e4be07fdd234f10b866433f224d183626003c65634ed0552b02e654a380244c2
+                x-checker-data:
+                  type: anitya
+                  project-id: 1570
+                  stable-only: true
+                  url-template: https://github.com/stevegrubb/libcap-ng/archive/v$version.tar.gz
+            cleanup:
+              - /bin
+              - /share/aclocal
       - name: slirp
         buildsystem: meson
         sources:
