@@ -14,50 +14,75 @@ build-options:
   prepend-ld-library-path: /app/lib/extensions/Qemu/lib
   prepend-pkg-config-path: /app/lib/extensions/Qemu/lib/pkgconfig:/app/lib/extensions/Qemu/share/pkgconfig
   strip: true
-
+cleanup:
+  - "*.la"
+  - "*.a"
+  - /var
+  - /include
+  - /etc
+  - /lib/pkgconfig
 modules:
   - name: qemu
+    build-options:
+      env:
+        PYTHONPATH: /app/lib/extensions/Qemu/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages
     config-opts:
-      - --disable-download
-      - --enable-kvm
-      - --enable-spice
-      - --enable-opengl
-      - --enable-virglrenderer
-      - --enable-usb-redir
-      - --disable-debug-info
-    # Flatpak currently does not have smartcard support https://github.com/flatpak/flatpak/issues/4723
-    # - "--enable-smartcard"
-      - --enable-slirp
-      - --disable-docs
-      - --disable-user
-      - --python=/bin/python3
-      - --target-list=x86_64-softmmu,i386-softmmu
+      # Flatpak currently does not have smartcard support https://github.com/flatpak/flatpak/issues/4723
+      # - "--enable-smartcard"
       - --disable-bsd-user
       - --disable-debug-info
+      - --disable-docs
+      - --disable-download
       - --disable-glusterfs
       - --disable-linux-user
       - --disable-oss
+      - --disable-user
       - --disable-werror
       - --disable-xen
+      - --enable-kvm
+      - --enable-opengl
+      - --enable-slirp
+      - --enable-spice
+      - --enable-usb-redir
+      - --enable-virglrenderer
+      - --libexecdir=bin
+      - --python=/bin/python3
+      - --target-list=x86_64-softmmu,i386-softmmu
+    post-install:
+      - install -Dpm0644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
     sources:
       - type: archive
-        url: https://download.qemu.org/qemu-9.2.0.tar.xz
-        sha256: f859f0bc65e1f533d040bbe8c92bcfecee5af2c921a6687c652fb44d089bd894
+        url: https://download.qemu.org/qemu-10.1.0.tar.xz
+        sha256: e0517349b50ca73ebec2fa85b06050d5c463ca65c738833bd8fc1f15f180be51
         x-checker-data:
           type: anitya
           project-id: 13607
-          url-template: https://download.qemu.org/qemu-9.2.0.tar.xz
+          url-template: https://download.qemu.org/qemu-$version.tar.xz
+      - type: file
+        path: org.virt_manager.virt_manager.Extension.Qemu.metainfo.xml
     modules:
+      - name: python3-distlib
+        buildsystem: simple
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/96/8e/709914eb2b5749865801041647dc7f4e6d00b549cfe88b65ca192995f07c/distlib-0.4.0.tar.gz
+            sha256: feec40075be03a04501a973d81f633735b4b69f98b05450592310c0f401a4e0d
+            x-checker-data:
+              type: pypi
+              name: distlib
+        build-commands:
+          - pip3 install --global-option='--with-libyaml' --no-index --find-links="file://${PWD}"
+            --prefix="${FLATPAK_DEST}" --no-build-isolation distlib
       - name: slirp
         buildsystem: meson
         sources:
           - type: archive
-            url: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.8.0.tar.gz
-            sha256: 378216c88c021c9ed7de9006db291127d30a0da94a23dffefdb26b26a5849bf7
+            url: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.9.1.tar.gz
+            sha256: 9aef0c439abb5126f935ffec56be7da45a3dec7b8ba4a163d7ede74749f97d56
             x-checker-data:
               type: anitya
               project-id: 96796
-              url-template: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.8.0.tar.gz
+              url-template: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v$version.tar.gz
       - name: usbredir
         buildsystem: meson
         modules:
@@ -85,15 +110,18 @@ modules:
             buildsystem: simple
             sources:
               - type: file
-                url: https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz
-                sha256: d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e
+                url: https://files.pythonhosted.org/packages/05/8e/961c0007c59b8dd7729d542c61a4d537767a59645b82a0b521206e1e25c2/pyyaml-6.0.3.tar.gz
+                sha256: d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f
+                x-checker-data:
+                  type: pypi
+                  name: pyyaml
             build-commands:
               - pip3 install --global-option='--with-libyaml' --no-index --find-links="file://${PWD}"
                 --prefix="${FLATPAK_DEST}" --no-build-isolation PyYAML
         sources:
           - type: archive
-            url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.1.1/virglrenderer-1.1.1.tar.gz
-            sha256: 1fc34ffbf2a4f5cf161228f13242e28283bd818901d7daf0027e6ae5fcaeaf9b
+            url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.2.0/virglrenderer-1.2.0.tar.gz
+            sha256: 8bae92909021ea87e2087ae96df322f90140c414bd5f38810af3f3e5146a567b
             x-checker-data:
               type: anitya
               project-id: 15968
@@ -140,6 +168,8 @@ modules:
       - --with-gnutls
       - --with-tss-user=tss
       - --with-tss-group=tss
+    cleanup:
+      - /libexec/installed_tests
     sources:
       - type: archive
         url: https://github.com/stefanberger/swtpm/archive/refs/tags/v0.10.1.tar.gz
@@ -206,10 +236,3 @@ modules:
                   project-id: 10231
                   stable-only: true
                   url-template: https://sourceforge.net/projects/net-tools/files/net-tools-$version.tar.xz
-  - name: metadata
-    buildsystem: simple
-    build-commands:
-      - install -Dm644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
-    sources:
-      - type: file
-        path: org.virt_manager.virt_manager.Extension.Qemu.metainfo.xml
