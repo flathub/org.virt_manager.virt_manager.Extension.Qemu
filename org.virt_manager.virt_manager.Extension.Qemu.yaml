@@ -1,7 +1,7 @@
 app-id: org.virt_manager.virt_manager.Extension.Qemu
 runtime: org.virt_manager.virt-manager
 runtime-version: stable
-sdk: org.freedesktop.Sdk//24.08
+sdk: org.freedesktop.Sdk//25.08
 build-extension: true
 separate-locales: false
 build-options:
@@ -24,8 +24,10 @@ cleanup:
 modules:
   - name: qemu
     build-options:
+      # FIXME: fix prefix for SDL2_image library
+      prepend-pkg-config-path: /app/lib/extensions/Qemu/lib/pkgconfig:/app/lib/extensions/Qemu/app/lib/extensions/Qemu/lib/pkgconfig
       env:
-        PYTHONPATH: /app/lib/extensions/Qemu/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages
+        PYTHONPATH: /app/lib/extensions/Qemu/lib/python3.13/site-packages:/usr/lib/python3.13/site-packages
     config-opts:
       # Flatpak currently does not have smartcard support https://github.com/flatpak/flatpak/issues/4723
       # - "--enable-smartcard"
@@ -39,12 +41,15 @@ modules:
       - --disable-user
       - --disable-werror
       - --disable-xen
+      - --enable-zstd
       - --enable-kvm
       - --enable-opengl
       - --enable-slirp
       - --enable-spice
       - --enable-usb-redir
       - --enable-virglrenderer
+      - --enable-sdl
+      - --enable-sdl-image
       - --libexecdir=bin
       - --python=/bin/python3
       - --target-list=x86_64-softmmu,i386-softmmu
@@ -52,8 +57,8 @@ modules:
       - install -Dpm0644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
     sources:
       - type: archive
-        url: https://download.qemu.org/qemu-10.1.2.tar.xz
-        sha256: 9d75f331c1a5cb9b6eb8fd9f64f563ec2eab346c822cb97f8b35cd82d3f11479
+        url:  https://download.qemu.org/qemu-10.2.0.tar.xz
+        sha256: 9e30ad1b8b9f7b4463001582d1ab297f39cfccea5d08540c0ca6d6672785883a
         x-checker-data:
           type: anitya
           project-id: 13607
@@ -61,6 +66,8 @@ modules:
       - type: file
         path: org.virt_manager.virt_manager.Extension.Qemu.metainfo.xml
     modules:
+      # We need the pkgconfig headers
+      - shared-modules/SDL2/SDL2_image.json
       - name: python3-distlib
         buildsystem: simple
         sources:
@@ -71,7 +78,7 @@ modules:
               type: pypi
               name: distlib
         build-commands:
-          - pip3 install --global-option='--with-libyaml' --no-index --find-links="file://${PWD}"
+          - pip3 install --no-index --find-links="file://${PWD}"
             --prefix="${FLATPAK_DEST}" --no-build-isolation distlib
       - name: slirp
         buildsystem: meson
@@ -96,11 +103,12 @@ modules:
               project-id: 16012
               stable-only: true
               url-template: https://spice-space.org/download/usbredir/usbredir-$version.tar.xz
+
       - name: virglrenderer
         buildsystem: meson
         build-options:
           env:
-            PYTHONPATH: /app/lib/extensions/Qemu/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages
+            PYTHONPATH: /app/lib/extensions/Qemu/lib/python3.13/site-packages:/usr/lib/python3.13/site-packages
         config-opts:
           - -Dvideo=true
           - -Dvenus=true
@@ -116,7 +124,7 @@ modules:
                   type: pypi
                   name: pyyaml
             build-commands:
-              - pip3 install --global-option='--with-libyaml' --no-index --find-links="file://${PWD}"
+              - pip3 install --no-index --find-links="file://${PWD}"
                 --prefix="${FLATPAK_DEST}" --no-build-isolation PyYAML
         sources:
           - type: archive
@@ -186,16 +194,16 @@ modules:
     modules:
       - name: socat
         buildsystem: autotools
+        cleanup:
+          - /share
         sources:
           - type: archive
-            url: http://www.dest-unreach.org/socat/download/socat-1.8.0.3.tar.gz
-            sha256: a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4
+            url: http://www.dest-unreach.org/socat/download/socat-1.8.1.0.tar.gz 
+            sha256: 9a884880b1b00dfb2ffc6959197b1554b200af731018174cd048115dc28ef239
             x-checker-data:
               type: anitya
               project-id: 4848
               url-template: http://www.dest-unreach.org/socat/download/socat-$version.tar.gz
-        cleanup:
-          - /share
       - name: libtpms
         buildsystem: autotools
         sources:
