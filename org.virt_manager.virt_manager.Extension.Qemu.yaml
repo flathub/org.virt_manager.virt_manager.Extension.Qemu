@@ -67,7 +67,7 @@ modules:
       - install -Dpm0644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
     sources:
       - type: archive
-        url:  https://download.qemu.org/qemu-10.2.0.tar.xz
+        url: https://download.qemu.org/qemu-10.2.0.tar.xz
         sha256: 9e30ad1b8b9f7b4463001582d1ab297f39cfccea5d08540c0ca6d6672785883a
         x-checker-data:
           type: anitya
@@ -88,8 +88,8 @@ modules:
               type: pypi
               name: distlib
         build-commands:
-          - pip3 install --no-index --find-links="file://${PWD}"
-            --prefix="${FLATPAK_DEST}" --no-build-isolation distlib
+          - pip3 install --no-index --find-links="file://${PWD}" --prefix="${FLATPAK_DEST}"
+            --no-build-isolation distlib
       - name: slirp
         buildsystem: meson
         sources:
@@ -141,8 +141,8 @@ modules:
                   type: pypi
                   name: pyyaml
             build-commands:
-              - pip3 install --no-index --find-links="file://${PWD}"
-                --prefix="${FLATPAK_DEST}" --no-build-isolation PyYAML
+              - pip3 install --no-index --find-links="file://${PWD}" --prefix="${FLATPAK_DEST}"
+                --no-build-isolation PyYAML
       - name: spice
         buildsystem: autotools
         cleanup:
@@ -211,7 +211,7 @@ modules:
           - /share
         sources:
           - type: archive
-            url: http://www.dest-unreach.org/socat/download/socat-1.8.1.0.tar.gz 
+            url: http://www.dest-unreach.org/socat/download/socat-1.8.1.0.tar.gz
             sha256: 9a884880b1b00dfb2ffc6959197b1554b200af731018174cd048115dc28ef239
             x-checker-data:
               type: anitya
@@ -221,8 +221,8 @@ modules:
         buildsystem: autotools
         sources:
           - type: archive
-            url: https://github.com/stefanberger/libtpms/archive/refs/tags/v0.10.1.tar.gz
-            sha256: ebc24f3191d90f6cf0b4d4200cd876db4bd224b3c565708bbea0a82ee275e0fb
+            url: https://github.com/stefanberger/libtpms/archive/refs/tags/v0.10.2.tar.gz
+            sha256: edac03680f8a4a1c5c1d609a10e3f41e1a129e38ff5158f0c8deaedc719fb127
             x-checker-data:
               type: anitya
               project-id: 116460
