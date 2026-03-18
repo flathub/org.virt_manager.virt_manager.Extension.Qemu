@@ -67,8 +67,8 @@ modules:
       - install -Dpm0644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
     sources:
       - type: archive
-        url: https://download.qemu.org/qemu-10.2.0.tar.xz
-        sha256: 9e30ad1b8b9f7b4463001582d1ab297f39cfccea5d08540c0ca6d6672785883a
+        url: https://download.qemu.org/qemu-10.2.2.tar.xz
+        sha256: 784b296ff29c1417aa72323abcb2d2ea9ab9771724f577dcd785c3b04f21e176
         x-checker-data:
           type: anitya
           project-id: 13607
@@ -124,8 +124,8 @@ modules:
           - -Dtests=false
         sources:
           - type: archive
-            url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.2.0/virglrenderer-1.2.0.tar.gz
-            sha256: 8bae92909021ea87e2087ae96df322f90140c414bd5f38810af3f3e5146a567b
+            url: https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/1.3.0/virglrenderer-1.3.0.tar.gz
+            sha256: 065bc56e89e6f631f96101cd62eba0748e48eb888b434edc86e89d05395e76f3
             x-checker-data:
               type: anitya
               project-id: 15968
@@ -211,8 +211,8 @@ modules:
           - /share
         sources:
           - type: archive
-            url: http://www.dest-unreach.org/socat/download/socat-1.8.1.0.tar.gz
-            sha256: 9a884880b1b00dfb2ffc6959197b1554b200af731018174cd048115dc28ef239
+            url: http://www.dest-unreach.org/socat/download/socat-1.8.1.1.tar.gz
+            sha256: f68b602c80e94b4b7498d74ec408785536fe33534b39467977a82ab2f7f01ddb
             x-checker-data:
               type: anitya
               project-id: 4848
