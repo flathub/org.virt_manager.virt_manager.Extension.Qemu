@@ -67,8 +67,8 @@ modules:
       - install -Dpm0644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
     sources:
       - type: archive
-        url: https://download.qemu.org/qemu-11.0.0.tar.xz
-        sha256: c04ca36012653f32d11c674d370cf52a710e7d3f18c2d8b63e4932052a4854d6
+        url: https://download.qemu.org/qemu-11.0.1.tar.xz
+        sha256: 0d235f5820278d914a3155ec27af8e4258d697ea892895570807d69c0cb8cd64
         x-checker-data:
           type: anitya
           project-id: 13607
@@ -162,9 +162,9 @@ modules:
               - -Dvalgrind=disabled
               - -Dudev=false
             sources:
-                - type: archive
-                  url: https://dri.freedesktop.org/libdrm/libdrm-2.4.133.tar.xz
-                  sha256: fc68f9d0ba2ea63c9432a299e14fea09fad7a8a66e8039fcd7802ca59f77b4f5
+              - type: archive
+                url: https://dri.freedesktop.org/libdrm/libdrm-2.4.133.tar.xz
+                sha256: fc68f9d0ba2ea63c9432a299e14fea09fad7a8a66e8039fcd7802ca59f77b4f5
 
       - name: spice
         buildsystem: autotools
@@ -200,8 +200,8 @@ modules:
             buildsystem: meson
             sources:
               - type: archive
-                url: https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/v1.7.2.tar.gz
-                sha256: 04a30bd38b426ed771b8a8b5d9b773e54976d4f5d51a80a9e76a45b20c9a8272
+                url: https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/v1.8.0.tar.gz
+                sha256: 159cdb3ad317603c4526de1fd8309961ba9e6a2e053da1af699bb7a2af4e3744
                 x-checker-data:
                   type: anitya
                   project-id: 16911
