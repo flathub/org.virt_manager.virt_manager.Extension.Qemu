@@ -67,8 +67,8 @@ modules:
       - install -Dpm0644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
     sources:
       - type: archive
-        url: https://download.qemu.org/qemu-11.0.0.tar.xz
-        sha256: c04ca36012653f32d11c674d370cf52a710e7d3f18c2d8b63e4932052a4854d6
+        url: https://download.qemu.org/qemu-11.0.1.tar.xz
+        sha256: 0d235f5820278d914a3155ec27af8e4258d697ea892895570807d69c0cb8cd64
         x-checker-data:
           type: anitya
           project-id: 13607
@@ -82,8 +82,8 @@ modules:
         buildsystem: simple
         sources:
           - type: file
-            url: https://files.pythonhosted.org/packages/96/8e/709914eb2b5749865801041647dc7f4e6d00b549cfe88b65ca192995f07c/distlib-0.4.0.tar.gz
-            sha256: feec40075be03a04501a973d81f633735b4b69f98b05450592310c0f401a4e0d
+            url: https://files.pythonhosted.org/packages/46/8d/873e9252ea2c0e0c857884e0a2899ec43ade132345df1925ef24cbe64f18/distlib-0.4.2.tar.gz
+            sha256: baeb401c90f27acd15c4861ae0847d1e731c27ac3dbf4210643ba61fa1e813db
             x-checker-data:
               type: pypi
               name: distlib
@@ -162,9 +162,9 @@ modules:
               - -Dvalgrind=disabled
               - -Dudev=false
             sources:
-                - type: archive
-                  url: https://dri.freedesktop.org/libdrm/libdrm-2.4.133.tar.xz
-                  sha256: fc68f9d0ba2ea63c9432a299e14fea09fad7a8a66e8039fcd7802ca59f77b4f5
+              - type: archive
+                url: https://dri.freedesktop.org/libdrm/libdrm-2.4.133.tar.xz
+                sha256: fc68f9d0ba2ea63c9432a299e14fea09fad7a8a66e8039fcd7802ca59f77b4f5
 
       - name: spice
         buildsystem: autotools
@@ -200,8 +200,8 @@ modules:
             buildsystem: meson
             sources:
               - type: archive
-                url: https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/v1.7.2.tar.gz
-                sha256: 04a30bd38b426ed771b8a8b5d9b773e54976d4f5d51a80a9e76a45b20c9a8272
+                url: https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/v1.8.1.tar.gz
+                sha256: a6bea318d8d4c80ad9637a0c94571ba1148d482604006f02b70e70126ac2310b
                 x-checker-data:
                   type: anitya
                   project-id: 16911
