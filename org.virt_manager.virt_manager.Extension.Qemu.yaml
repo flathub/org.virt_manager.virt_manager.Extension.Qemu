@@ -67,8 +67,8 @@ modules:
       - install -Dpm0644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
     sources:
       - type: archive
-        url: https://download.qemu.org/qemu-11.0.1.tar.xz
-        sha256: 0d235f5820278d914a3155ec27af8e4258d697ea892895570807d69c0cb8cd64
+        url: https://download.qemu.org/qemu-11.1.2.tar.xz
+        sha256: 731b5681e4bb18be313231579b8efd0296c5b015fa36dc533874b639ba838016
         x-checker-data:
           type: anitya
           project-id: 13607
@@ -94,8 +94,8 @@ modules:
         buildsystem: meson
         sources:
           - type: archive
-            url: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.9.1.tar.gz
-            sha256: 9aef0c439abb5126f935ffec56be7da45a3dec7b8ba4a163d7ede74749f97d56
+            url: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.9.5.tar.gz
+            sha256: 1bf422c9e25803f0d59d8bff2e04800ff38367b9d4a7305c9ebfbc2455da73bd
             x-checker-data:
               type: anitya
               project-id: 96796
@@ -216,8 +216,8 @@ modules:
       - /libexec/installed_tests
     sources:
       - type: archive
-        url: https://github.com/stefanberger/swtpm/archive/refs/tags/v0.10.1.tar.gz
-        sha256: f8da11cadfed27e26d26c5f58a7b8f2d14d684e691927348906b5891f525c684
+        url: https://github.com/stefanberger/swtpm/archive/refs/tags/v0.10.2.tar.gz
+        sha256: f61cf6f1e9bbcb4cefb30b70cafaf1c4df54c6961e65cfa63830e8ad0e220134
         x-checker-data:
           type: anitya
           project-id: 116461
@@ -234,8 +234,8 @@ modules:
           - /share
         sources:
           - type: archive
-            url: http://www.dest-unreach.org/socat/download/socat-1.8.1.1.tar.gz
-            sha256: f68b602c80e94b4b7498d74ec408785536fe33534b39467977a82ab2f7f01ddb
+            url: http://www.dest-unreach.org/socat/download/socat-1.8.1.3.tar.gz
+            sha256: 06602ffd591e98c75b3dc1d66f0f19136cc666b0b2d95caad987d6ab2cb28097
             x-checker-data:
               type: anitya
               project-id: 4848
